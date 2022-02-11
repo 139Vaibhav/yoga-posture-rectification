@@ -12,6 +12,8 @@ let poseLabel;
 let x= true;
 let s="";
 let i=0;
+let iteration;
+let posename=" ";
 
 //console.log(x);
 showDiv('hidden_div',x);
@@ -20,10 +22,10 @@ function Buttontoggle()
 {
   var t = document.getElementById("123");
   if(t.innerHTML=="practice session"){
-      t.innerHTML="Modules";x=false;i=0;}
+      t.innerHTML="Modules";x=false;i=0;iteration=0}
   else{
       t.innerHTML="practice session";
-    x=true;}
+    x=true;posename=" ";}
     //console.log(x);
     showDiv('hidden_div',x);
 }
@@ -62,6 +64,8 @@ function setup() {
     weights: 'model/model.weights.bin',
   };
   yogi.load(modelInfo, yogiLoaded);
+
+  iteration=0;
 }
 
 function yogiLoaded(){
@@ -92,13 +96,22 @@ function gotResult(error, results) {
 
     var pose_key="dtapw";
     console.log(pose_key[i]);
-    if(results[0].label == pose_key[i] && i<5){
+    posename=posesArray[i];
+    if(results[0].label == pose_key[i] ){
+      
       if(pose_score>0.90 ){
-       poseLabel="Great!!";i++;}
+       poseLabel="Great!!";
+       iteration += 1;
+       console.log(iteration);
+       if (iteration == 40) {
+        // console.log("30!")
+         iteration = 0;
+         nextPose();}}
       else if(pose_score>0.70)
        poseLabel="try harder!";
       else
        poseLabel="try again";
+    
     }
     else{
       poseLabel="wrong";
@@ -168,5 +181,15 @@ function draw() {
   textSize(60);
   textAlign(CENTER, CENTER);
   text(q, 500, 200);
+  text(posename,100,200);
 }
 
+function nextPose(){
+if(i>=5){
+  console.log("well done");
+}
+else{
+  i+=1;
+  //setTimeout(classifyPose,5000);
+}
+}
