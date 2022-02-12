@@ -90,7 +90,7 @@ function classifyPose(){
 }
 
 function gotResult(error, results) {
-    pose_score=results[0].confidence;
+    
     //console.log(x);
   if(x==false){
 
@@ -98,7 +98,7 @@ function gotResult(error, results) {
     console.log(pose_key[i]);
     posename=posesArray[i];
     if(results[0].label == pose_key[i] ){
-      
+      pose_score=results[0].confidence;
       if(pose_score>0.90 ){
        poseLabel="Great!!";
        iteration += 1;
@@ -114,11 +114,13 @@ function gotResult(error, results) {
     
     }
     else{
+      pose_score=0;
       poseLabel="wrong";
     }
   }
         else{
           if(results[0].label == s){
+            pose_score=results[0].confidence;
             if(pose_score>0.90)
              poseLabel="Great!!";
             else if(pose_score>0.70)
@@ -127,6 +129,7 @@ function gotResult(error, results) {
              poseLabel="try again";
           }
           else{
+            pose_score=0;
             poseLabel="wrong";
           }
         }

@@ -9,7 +9,7 @@ function setup() {
     debug: true
   }
   brain = ml5.neuralNetwork(options);
-  brain.loadData('yoga-pose-coordinates.json', dataReady);
+  brain.loadData('yoga-poses-data.json', dataReady);
 }
 
 function dataReady() {
