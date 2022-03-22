@@ -3,7 +3,7 @@ let poseNet;
 let pose;
 let skeleton;
 let thirtysecs;
-let posesArray = ['Dancer', 'Tree', 'Triangle', 'Plank', 'Warrior I'];
+let posesArray = ['Dancer','Tree', 'Triangle', 'Plank', 'Warrior I'];
 
 let yogi;
 let q;
@@ -44,7 +44,7 @@ console.log(s);
 
 function setup() {
   var canvas = createCanvas(640, 480);
-  canvas.position(130, 210);
+  canvas.position(0, 150);
   video = createCapture(VIDEO);
   video.hide();
   poseNet = ml5.poseNet(video, modelLoaded);
@@ -59,9 +59,9 @@ function setup() {
   
   yogi = ml5.neuralNetwork(options);
   const modelInfo = {
-    model: 'model/model.json',
-    metadata: 'model/model_meta.json',
-    weights: 'model/model.weights.bin',
+    model: 'model/model (2).json',
+    metadata: 'model/model_meta (2).json',
+    weights: 'model/model.weights (2).bin',
   };
   yogi.load(modelInfo, yogiLoaded);
 
@@ -94,9 +94,10 @@ function gotResult(error, results) {
     //console.log(x);
   if(x==false){
 
-    var pose_key="dtapw";
+    var pose_key="12345";
     console.log(pose_key[i]);
-    posename=posesArray[i];
+    document.getElementById("poseName").textContent =posesArray[i];
+    document.getElementById("image").src=`pose_img/img (${i+1}).png`;
     if(results[0].label == pose_key[i] ){
       pose_score=results[0].confidence;
       if(pose_score>0.90 ){
@@ -119,6 +120,9 @@ function gotResult(error, results) {
     }
   }
         else{
+          if(s>0){
+          document.getElementById("poseName").textContent =posesArray[s-1];
+          document.getElementById("image").src=`pose_img/img (${s}).png`;}
           if(results[0].label == s){
             pose_score=results[0].confidence;
             if(pose_score>0.90)
@@ -184,7 +188,7 @@ function draw() {
   textSize(60);
   textAlign(CENTER, CENTER);
   text(q, 500, 200);
-  text(posename,100,200);
+ 
 }
 
 function nextPose(){

@@ -6,7 +6,7 @@ let skeleton;
 let yogi;
 let poseLabel = "";
 let targetPose;
-let state = "waiting";
+let state = "waiting";let j=1;
 
 function keyPressed() {
  if (key == 's') {
@@ -20,8 +20,9 @@ function keyPressed() {
       setTimeout(function() {
         console.log('not collecting');
         state = 'waiting';
-      }, 10000);
-    }, 5000);
+      }, 5000);
+    }, 6000);
+   // j++;
   }
 }
 
